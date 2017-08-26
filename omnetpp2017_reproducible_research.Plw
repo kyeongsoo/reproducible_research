@@ -1,0 +1,340 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Pweave document; to process, run the following:
+% $ pweave -f texpygments omnetpp2017_reproducible_research.texw
+% $ pdflatex omnetpp2017_reproducible_research.tex
+% $ pdflatex omnetpp2017_reproducible_research.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[conference,final,onecolumn]{IEEEtran}
+
+
+%%% packages
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{color}
+\usepackage{datetime}
+\usepackage{etoolbox}
+\usepackage{fancyvrb}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1.0in]{geometry}
+% \usepackage[a4paper,text={16.5cm,25.2cm},centering]{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{ifpdf}
+\usepackage{longtable}			% for DataFrame.to_latex (optional)
+\usepackage{mdframed}
+\usepackage{minted}
+\usepackage{palatino}
+\usepackage{pygments}
+\usepackage{subfigure}
+\usepackage{url}
+
+
+%%% settings
+\hypersetup%%
+{%%
+  pdfauthor = {Kyeong Soo (Joseph) Kim},%%
+  pdftitle={Reproducible Research for OMNeT++ Based on Python and Pweave},%%
+  colorlinks=TRUE,%%
+  linkcolor=black,%%
+  citecolor=blue,%%
+  urlcolor=blue%%
+}%%
+\setlength{\parindent}{0pt} \setlength{\parskip}{1.2ex}
+% framing minted environment
+\BeforeBeginEnvironment{minted}{\begin{mdframed}}
+\AfterEndEnvironment{minted}{\end{mdframed}}
+% \let\originalinputminted\inputminted
+% \renewcommand{\inputminted}[][3]{\begin{mdframed}\originalinputminted[#1]{#2}{#3}\end{mdframed}}
+
+
+\begin{document}
+
+
+\title{Reproducible Research for OMNeT++ Based on Python and Pweave}%%
+\author{%%
+  Kyeong Soo (Joseph) Kim\\
+  Department of Electrical and Electronic Engineering\\
+  Xi'an Jiaotong-Liverpool University\\
+  Suzhou 215123, Jiangsu Province, P. R. China%%
+}%%
+\longdate%%
+\date{\today}%%
+\maketitle%%
+
+
+\begin{abstract}
+  The scheduling of electrical appliance energy consumption is a key to the
+  autonomous demand-side manage- ment (DSM) for residential smart grid in
+  optimizing energy production and consumption; the scheduling is based on smart
+  meters installed at users' premises and the two-way digital communications
+  between a utility company and users through the smart meters, and the typical
+  goals of DSM includes consumption reducing and shifting, which lead into lower
+  peak-to-average ratio (PAR) and energy cost. The current formulation of the
+  optimal scheduling of appliance energy consumption, however, cannot guarantee
+  the atomicity of appliances' operations (i.e., the unsplittable nature of
+  appliances' operations and resulting energy consumption).  In this
+  tutorial, we first provide a comprehensive review of the current formulation
+  of appliance energy consumption scheduling and their solution techniques based
+  on convex optimization and game theory for centralized and distributed
+  implementations. We also discuss the issues of the current formulation with a
+  major focus on the difficulty of guarantee of atomicity in scheduled energy
+  consumption. Then we introduce a new framework of atomic scheduling of
+  appliance energy consumption based on the optimal routing framework in
+  networking, where the optimal scheduling problems are formulated in terms of
+  the user flow configurations of the corresponding optimal routing
+  problems. Based on this new framework, we show how the atomic optimal
+  scheduling results in a Boolean-convex problem for a convex objective function
+  and a successive convex relaxation technique can efficiently calculate a
+  feasible suboptimal solution for the resulting Boolean- convex problem.  This
+  tutorial is intended for researchers in both academia and industry who are
+  interested in learning about recent developments in appliance scheduling for
+  DSM based on game theory, convex optimization, and optimal routing, especially
+  for those who have a background in relevant areas (e.g., communications and
+  networking) and are willing to contribute to the research for future smart
+  grid systems.
+\end{abstract}
+
+
+\section{Introduction}
+\label{sec:introduction}
+%%% 
+This an example of a document that can be published using
+\href{http://mpastell.com/pweave}{Pweave}. Text is written using \LaTeX{} and
+code between \texttt{<<>>} and \texttt{@} is executed and results are included
+in the resulting document.
+
+You can define various options for code chunks to control code execution and
+formatting (see
+\href{http://mpastell.com/pweave/usage.html\#code-chunk-options}{Pweave docs}).
+
+
+\section{What Is Reproducible Research?}
+\label{sec:reproducible-research}
+%%% 
+I was asked about my understanding of reproducible research, and how that
+applies to social research.  Here is how I see: Reproducible research is key to
+any scientific method, including applied social sciences. My minimalist
+understanding of reproducible research is quite simple: The capacity of
+repeating an experiment in any place with any person.
+
+A study can be truly reproducible when it satisfies at least the following three criteria.
+\begin{itemize}
+\item All methods are fully reported.
+\item All data and files used for the analysis are (publicly) available.
+\item The process of analyzing raw data is well reported and preserved.
+\end{itemize}
+
+Therefore:\\
+Same data + Same script = Same results
+
+
+\section{Presenting Simulation Configurations}
+%%%
+
+\begin{listing}[H]
+\begin{mdframed}
+  \inputminted[fontsize=\scriptsize]{java}{/Tools/omnetpp/omnetpp-5.1/samples/aloha/Aloha.ned}
+\end{mdframed}
+\caption{'Aloha.ned' for Aloha sample model.}
+\label{lst:aloha_ned}
+\end{listing}
+
+\begin{listing}[H]
+\begin{mdframed}
+  \inputminted[fontsize=\scriptsize]{shell}{/Tools/omnetpp/omnetpp-5.1/samples/aloha/omnetpp.ini}
+\end{mdframed}
+\caption{'omnetpp.ini' for Aloha sample model.}
+\label{lst:omnetpp_ini}
+\end{listing}
+
+
+\section{Importing Simulation Results into Python}
+%%%
+Below is a python scrip that can run the OMNeT++ Aloha simulation only when
+simulation input files are newer than result files.
+
+% \begin{minted}[frame=lines,fontsize=\small,linenos]{batch}
+<<name='import_data',term=False,wrap=True>>=
+import os
+import subprocess
+
+# set path to run Aloha simulation in DOS command prompt
+omnetpp_root = os.environ['OMNETPP_ROOT']
+path1 = '/'.join([omnetpp_root, 'bin'])
+path2 = '/'.join([omnetpp_root, 'tools', 'win64', 'mingw64', 'bin'])
+os.environ['Path'] = ';'.join([path1, path2, os.environ['Path']])
+
+# run the simulation only if input files are newer than results
+# - it can be extended to checking multiple NED, INI, and result files
+ini = '/'.join([omnetpp_root, 'samples', 'aloha', 'omnetpp.ini'])
+sca = '/'.join([omnetpp_root, 'samples', 'aloha', 'results', 'PureAlohaExperiment-numHosts=10,mean=1-#0.sca'])
+aloha = '/'.join([omnetpp_root, 'samples', 'aloha', 'aloha.exe'])
+if os.path.getmtime(ini) > os.path.getmtime(sca):
+    subprocess.call([aloha, '-u', 'Cmdenv' '-f', 'omnetpp.ini', '-c', 'PureAlohaExperiment'])
+
+# convert Aloha's scalar files to CSV
+cwd = '/'.join([omnetpp_root, 'samples', 'aloha', 'results'])
+subprocess.call(['scavetool', 'export', '-T', 's', '-o', 'aloha.csv', '*.sca'], cwd=cwd)
+@
+% \end{minted}
+
+<<name='import_data',term=False,wrap=True>>=
+import pandas as pd
+aloha_df = pd.read_csv('/'.join([cwd, 'aloha.csv']))
+@
+
+
+\section{Exploring DataFrame}
+%%
+The following combination of \LaTeX and the Python code generates
+Table~\ref{tbl:dataframe}\footnote{Note that a space is inserted between '>>'
+  and '=' to prevent Pweave from weaving the code; it seems that there is no way
+  to escape Pweave chunk code markers.}:
+\begin{verbatim}
+\begin{table}[H]
+  \caption{Table from pandas DataFrame}
+  \label{tbl:dataframe}
+  \centering
+<<echo=False,results='raw'>> =
+import numpy as np
+df = aloha_df[['Module', 'Name', 'Unnamed: 20']]
+print(df.to_latex(longtable=True))
+@
+\end{table}
+\end{verbatim}
+% \end{verbatim}
+% {\guillemotleft}evaluate=False{\guillemotright}=
+% \begin{verbatim}
+
+\begin{table}[H]
+  \caption{Table automatically generated from pandas DataFrame}
+  \label{tbl:dataframe}
+  \centering
+<<echo=False,results='raw'>>=
+import numpy as np
+df = aloha_df[['Module', 'Name', 'Unnamed: 20']]
+print(df.to_latex(longtable=True))
+@
+\end{table}
+
+
+\section{Presenting Simulation Results}
+%%%
+We'll implement lowpass, highpass and ' bandpass FIR filters. If you
+want to read more about DSP I highly recommend
+\href{http://www.dspguide.com/}{The Scientist and Engineer's Guide to
+Digital Signal Processing} which is freely available online.
+
+\subsection{Functions for frequency, phase, impulse and step response}
+%%%
+Let's first define functions to plot filter properties.
+
+% \begin{figure*}
+%   \centering
+<<>>=
+from pylab import *
+import scipy.signal as signal
+    
+#Plot frequency and phase response
+def mfreqz(b,a=1):
+    w,h = signal.freqz(b,a)
+    h_dB = 20 * log10 (abs(h))
+    subplot(211)
+    plot(w/max(w),h_dB)
+    ylim(-150, 5)
+    ylabel('Magnitude (db)')
+    xlabel(r'Normalized Frequency (x$\pi$rad/sample)')
+    title(r'Frequency response')
+    subplot(212)
+    h_Phase = unwrap(arctan2(imag(h),real(h)))
+    plot(w/max(w),h_Phase)
+    ylabel('Phase (radians)')
+    xlabel(r'Normalized Frequency (x$\pi$rad/sample)')
+    title(r'Phase response')
+    subplots_adjust(hspace=0.5)
+
+#Plot step and impulse response
+def impz(b,a=1):
+    l = len(b)
+    impulse = repeat(0.,l); impulse[0] =1.
+    x = arange(0,l)
+    response = signal.lfilter(b,a,impulse)
+    subplot(211)
+    stem(x, response)
+    ylabel('Amplitude')
+    xlabel(r'n (samples)')
+    title(r'Impulse response')
+    subplot(212)
+    step = cumsum(response)
+    stem(x, step)
+    ylabel('Amplitude')
+    xlabel(r'n (samples)')
+    title(r'Step response')
+    subplots_adjust(hspace=0.5)
+@
+% \end{figure*}
+
+\subsection{Lowpass FIR filter}
+
+Designing a lowpass FIR filter is very simple to do with SciPy, all you
+need to do is to define the window length, cut off frequency and the
+window.
+
+The Hamming window is defined as:
+$w(n) = \alpha - \beta\cos\frac{2\pi n}{N-1}$, where $\alpha=0.54$ and
+$\beta=0.46$
+
+The next code chunk is executed in term mode, see the source document
+for syntax. Notice also that Pweave can now catch multiple
+figures/code chunk.
+
+<<term=True>>=
+n = 61
+a = signal.firwin(n, cutoff = 0.3, window = "hamming")
+#Frequency and phase response
+mfreqz(a)
+show()
+#Impulse and step response
+figure(2)
+impz(a)
+show()
+@
+
+\subsection{Highpass FIR Filter}
+%%%
+Let's define a highpass FIR filter:
+
+<<>>=
+n = 101
+a = signal.firwin(n, cutoff = 0.3, window = "hanning", pass_zero=False)
+mfreqz(a)
+show()
+@
+
+\subsection{Bandpass FIR filter}
+%%%
+Notice that the plot has a caption defined in code chunk options.
+
+<<caption="Bandpass FIR filter.">>=
+n = 1001
+a = signal.firwin(n, cutoff = [0.2, 0.5], window = 'blackmanharris', pass_zero = False)
+mfreqz(a)
+show()
+@
+
+
+\section{Summary}
+\label{sec:summary}
+%%%
+We have presented ...
+
+
+% %%% References
+% % with BiBTeX%%
+% \bibliographystyle{IEEEtran}%%
+% \bibliography{IEEEabrv,kks}%%
+% % without BiBTeX (i.e., standalone file)%%
+% % attach 'omnetpp2017_reproducible_research.bbl'%%
+
+
+\end{document}
