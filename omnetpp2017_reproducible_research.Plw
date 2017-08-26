@@ -1,24 +1,21 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Pweave document; to process, run the following:
-% $ pweave -f texpygments omnetpp2017_reproducible_research.texw
-% $ pdflatex omnetpp2017_reproducible_research.tex
-% $ pdflatex omnetpp2017_reproducible_research.tex
+% $ pweave -f texpygments omnetpp2017_reproducible_research.Plw
+% $ latexmk -pdf omnetpp2017_reproducible_research.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\documentclass[conference,final,onecolumn]{IEEEtran}
+\documentclass[conference,final,10pt,onecolumn]{IEEEtran}
 
 
 %%% packages
 \usepackage{amsmath}
+\usepackage{balance}
 \usepackage{booktabs}
 \usepackage{color}
 \usepackage{datetime}
 \usepackage{etoolbox}
 \usepackage{fancyvrb}
 \usepackage[T1]{fontenc}
-\usepackage[margin=1.0in]{geometry}
-% \usepackage[a4paper,text={16.5cm,25.2cm},centering]{geometry}
 \usepackage{graphicx}
-\usepackage{hyperref}
 \usepackage{ifpdf}
 \usepackage{longtable}			% for DataFrame.to_latex (optional)
 \usepackage{mdframed}
@@ -26,25 +23,29 @@
 \usepackage{palatino}
 \usepackage{pygments}
 \usepackage{subfigure}
-\usepackage{url}
+% better loading hyperref as the last pacakte
+\usepackage[colorlinks,bookmarksopen,bookmarksnumbered,citecolor=red,urlcolor=red]{hyperref}
+\tolerance=1000
 
 
 %%% settings
+\IEEEoverridecommandlockouts%%
+
 \hypersetup%%
 {%%
-  pdfauthor = {Kyeong Soo (Joseph) Kim},%%
   pdftitle={Reproducible Research for OMNeT++ Based on Python and Pweave},%%
-  colorlinks=TRUE,%%
-  linkcolor=black,%%
-  citecolor=blue,%%
-  urlcolor=blue%%
+  pdfauthor = {Kyeong Soo (Joseph) Kim},%%
+  pdfsubject={OMNeT++ 2017 tutorial on reproducible research},%
+  pdfcreator={PDFLaTeX}%
+  % colorlinks=TRUE,%%
+  % linkcolor=black,%%
+  % citecolor=blue,%%
+  % urlcolor=blue%%
 }%%
-\setlength{\parindent}{0pt} \setlength{\parskip}{1.2ex}
+
 % framing minted environment
 \BeforeBeginEnvironment{minted}{\begin{mdframed}}
 \AfterEndEnvironment{minted}{\end{mdframed}}
-% \let\originalinputminted\inputminted
-% \renewcommand{\inputminted}[][3]{\begin{mdframed}\originalinputminted[#1]{#2}{#3}\end{mdframed}}
 
 
 \begin{document}
@@ -57,8 +58,8 @@
   Xi'an Jiaotong-Liverpool University\\
   Suzhou 215123, Jiangsu Province, P. R. China%%
 }%%
-\longdate%%
-\date{\today}%%
+% \longdate%%
+% \date{\today}%%
 \maketitle%%
 
 
@@ -95,8 +96,8 @@ formatting (see
 \href{http://mpastell.com/pweave/usage.html\#code-chunk-options}{Pweave docs}).
 
 
-\section{What Is Reproducible Research?}
-\label{sec:reproducible-research}
+\section{Reproducible Research}
+\label{sec:repr-rese}
 %%% 
 I was asked about my understanding of reproducible research, and how that
 applies to social research.  Here is how I see: Reproducible research is key to
@@ -115,7 +116,26 @@ Therefore:\\
 Same data + Same script = Same results
 
 
-\section{Simulation Configurations}
+\section{Python and Pweave}
+\label{sec:python-pweave}
+%%%
+
+
+
+\section{Example: OMNeT++ Aloha Simulation}
+\label{sec:exampl-omnet++-aloha}
+%%%
+
+{%%
+  \color{red}
+  TODO
+  \begin{itemize}
+  \item Provide an overview with a diagram.
+  \item Provide more analyses and results.
+  \end{itemize}
+}%%
+
+\subsection{Simulation Configurations}
 \label{sec:simul-conf}
 %%%
 
@@ -153,7 +173,7 @@ aloha = '/'.join([omnetpp_root, 'samples', 'aloha', 'aloha.exe'])
 \end{listing}
 
 
-\section{Importing Simulation Results}
+\subsection{Importing Simulation Results}
 \label{sec:import-simul-results}
 %%%
 Below is a python scrip that can run the OMNeT++ Aloha simulation only when
@@ -177,10 +197,10 @@ import pandas as pd
 aloha_df = pd.read_csv('/'.join([cwd, 'aloha.csv']))
 @
 
-
-\subsection{Overview of Imported Data}
-\label{sec:overv-import-data}
-%%
+% \subsection{Overview of Imported Data}
+% \label{sec:overv-import-data}
+% %
+% 
 The following Python code chunk can automatically generate a long table over
 multiple pages from a pandas dataframe\footnote{Note that a space is inserted
   between '>>' and '=' to prevent Pweave from weaving the code; it seems that
@@ -196,7 +216,7 @@ print(df.to_latex(longtable=True))
 <<echo=False,results='raw'>>=
 import numpy as np
 df = aloha_df[['Module', 'Name', 'Unnamed: 20']]
-print(df.to_latex(longtable=True))
+print(df.iloc[:51].to_latex(longtable=True)) # limit to first 50 rows
 @
 
 This automatic generation of a table from a pandas dataframe is quite handy
@@ -209,10 +229,23 @@ surrounding the longtable with a tabular environment with its own caption and
 label does not work when the table spans over more than one pages.
 
 
-\section{Data Analysis and Presentation}
+\subsection{Data Analysis and Presentation}
 \label{sec:data-analys-pres}
 %%%
-TBD
+Here we process the dataframe obtained in Sec.~\ref{sec:import-simul-results}
+and create a line plot showing the channel utilization against mean interarrival
+time.
+
+<<caption='Channel Utilization vs. Mean Interarrival Time.'>>=
+import matplotlib.pyplot as plt
+
+wide_df = aloha_df.pivot('Run', columns='Name', values='Unnamed: 20')
+util_vs_ia = wide_df.pivot_table(index='mean', columns='numHosts', values='channelUtilization:last')
+util_vs_ia.plot.line(label='Number of Hosts')
+plt.xlabel('Mean Interarrival Time')
+plt.ylabel('Channel Utilization')
+plt.show()
+@ 
 
 
 \section{Summary}
