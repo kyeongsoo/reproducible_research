@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Pweave document; to process, run the following:
+% Pweave document: To process, run the following:
 % $ pweave -f texpygments omnetpp2017_reproducible_research.Plw
 % $ latexmk -pdf omnetpp2017_reproducible_research.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -27,6 +27,8 @@
 \usepackage[colorlinks,bookmarksopen,bookmarksnumbered,citecolor=red,urlcolor=red]{hyperref}
 \tolerance=1000
 
+%% specify a directory for figures
+\graphicspath{{figures/}}
 
 %%% settings
 \IEEEoverridecommandlockouts%%
@@ -37,10 +39,6 @@
   pdfauthor = {Kyeong Soo (Joseph) Kim},%%
   pdfsubject={OMNeT++ 2017 tutorial on reproducible research},%
   pdfcreator={PDFLaTeX}%
-  % colorlinks=TRUE,%%
-  % linkcolor=black,%%
-  % citecolor=blue,%%
-  % urlcolor=blue%%
 }%%
 
 % framing minted environment
@@ -77,19 +75,20 @@
   implementation and its configurations are also should be provided. In this
   tutorial, we illustrate the practice of the reproducible research for OMNeT++
   simulation based on Pweave and Python, where we show how to embed simulation
-  configuration files and Python analysis code, to import simulation data with
-  automatic updating of simulation results, and to analyze data and present
-  their results in a \LaTeX file.
+  configuration files and Python analysis code, import simulation data with
+  automatic updating of simulation results, and analyze data and present their
+  results in a \LaTeX file.
 \end{abstract}
 
 
 \section{Introduction}
 \label{sec:introduction}
 %%% 
-This an example of a document that can be published using
-\href{http://mpastell.com/pweave}{Pweave}. Text is written using \LaTeX{} and
-code between \texttt{<<>>} and \texttt{@} is executed and results are included
-in the resulting document.
+We provide this file as a minimal template for a reproducible research document
+for OMNeT++ based on Python and
+\href{http://mpastell.com/pweave}{Pweave}. Documentation part is prepared for
+\LaTeX{} and code between \texttt{<<>>} and \texttt{@} is executed and results
+are included in the resulting document.
 
 You can define various options for code chunks to control code execution and
 formatting (see
@@ -99,41 +98,39 @@ formatting (see
 \section{Reproducible Research}
 \label{sec:repr-rese}
 %%% 
-I was asked about my understanding of reproducible research, and how that
-applies to social research.  Here is how I see: Reproducible research is key to
-any scientific method, including applied social sciences. My minimalist
-understanding of reproducible research is quite simple: The capacity of
-repeating an experiment in any place with any person.
+Reproducible research is a key to any scientific method and ensures repeating an
+experiment and the results of its analysis in any place with any person.
 
-A study can be truly reproducible when it satisfies at least the following three criteria.
+A study can be truly reproducible when it satisfies at least the following three
+criteria.
 \begin{itemize}
 \item All methods are fully reported.
 \item All data and files used for the analysis are (publicly) available.
 \item The process of analyzing raw data is well reported and preserved.
 \end{itemize}
 
-Therefore:\\
+This means\\
 Same data + Same script = Same results
 
 
 \section{Python and Pweave}
 \label{sec:python-pweave}
 %%%
-
-
-
-\section{Example: OMNeT++ Aloha Simulation}
-\label{sec:exampl-omnet++-aloha}
+Fig.~\ref{fig:weaving_tangling} shows an overview of weaving and tangling
+procedures provided by Pweave.
+%%%
+\begin{figure}[!tb]
+  \centering
+  \includegraphics[angle=-90,width=.7\linewidth]{weaving_tangling}
+  \caption{Overview of weaving and tangling procedures.}
+  \label{fig:weaving_tangling}
+\end{figure}
 %%%
 
-{%%
-  \color{red}
-  TODO
-  \begin{itemize}
-  \item Provide an overview with a diagram.
-  \item Provide more analyses and results.
-  \end{itemize}
-}%%
+
+\section{Example: OMNeT++ FIFO Simulation}
+\label{sec:exampl-omnet++-fifo}
+%%%
 
 \subsection{Simulation Configurations}
 \label{sec:simul-conf}
@@ -142,7 +139,7 @@ Same data + Same script = Same results
 <<name='settings',term=False,wrap=True>>=
 import os
 
-# set path to run Aloha simulation in DOS command prompt
+# set path to run Fifo simulation in DOS command prompt
 omnetpp_root = os.environ['OMNETPP_ROOT']
 path1 = '/'.join([omnetpp_root, 'bin'])
 path2 = '/'.join([omnetpp_root, 'tools', 'win64', 'mingw64', 'bin'])
@@ -150,25 +147,25 @@ os.environ['Path'] = ';'.join([path1, path2, os.environ['Path']])
 
 # run the simulation only if input files are newer than results
 # - it can be extended to checking multiple NED, INI, and result files
-ned = '/'.join([omnetpp_root, 'samples', 'aloha', 'Aloha.ned'])
-ini = '/'.join([omnetpp_root, 'samples', 'aloha', 'omnetpp.ini'])
-sca = '/'.join([omnetpp_root, 'samples', 'aloha', 'results', 'PureAlohaExperiment-numHosts=10,mean=1-#0.sca'])
-aloha = '/'.join([omnetpp_root, 'samples', 'aloha', 'aloha.exe'])
+ned = '/'.join(['.', 'fifo', 'Fifo.ned'])
+ini = '/'.join(['.', 'fifo', 'omnetpp.ini'])
+sca = '/'.join(['.', 'fifo', 'results', 'Fifo1-st=0.01-#0.sca'])
+fifo = '/'.join(['.', 'fifo', 'fifo.exe'])
 @ 
 
 \begin{listing}[H]
 \begin{mdframed}
-  \inputminted[fontsize=\scriptsize]{java}{/omnetpp/samples/aloha/Aloha.ned}
+  \inputminted[fontsize=\scriptsize]{java}{./fifo/FifoNet.ned}
 \end{mdframed}
-\caption{'Aloha.ned' for Aloha sample model.}
-\label{lst:aloha_ned}
+\caption{'FifoNet.ned' for FIFO sample model.}
+\label{lst:fifonet_ned}
 \end{listing}
 
 \begin{listing}[H]
 \begin{mdframed}
-  \inputminted[fontsize=\scriptsize]{shell}{/omnetpp/samples/aloha/omnetpp.ini}
+  \inputminted[fontsize=\scriptsize]{shell}{./fifo/omnetpp.ini}
 \end{mdframed}
-\caption{'omnetpp.ini' for Aloha sample model.}
+\caption{'omnetpp.ini' for FIFO sample model.}
 \label{lst:omnetpp_ini}
 \end{listing}
 
@@ -176,25 +173,25 @@ aloha = '/'.join([omnetpp_root, 'samples', 'aloha', 'aloha.exe'])
 \subsection{Importing Simulation Results}
 \label{sec:import-simul-results}
 %%%
-Below is a python scrip that can run the OMNeT++ Aloha simulation only when
+Below is a python scrip that can run the OMNeT++ FIFO simulation only when
 simulation input files are newer than result files.
 
 <<name='update_results',term=False,wrap=True>>=
 import subprocess
 
 # run the simulation only if input files are newer than results
-if os.path.getmtime(ini) > os.path.getmtime(sca):
-    cwd = '/'.join([omnetpp_root, 'samples', 'aloha'])
-    subprocess.call([aloha, '-u', 'Cmdenv' '-f', 'omnetpp.ini', '-c', 'PureAlohaExperiment'], cwd=cwd)
+if (not os.path.isfile(sca)) or (os.path.getmtime(ini) > os.path.getmtime(sca)):
+    cwd = '/'.join(['.', 'fifo'])
+    subprocess.call([fifo, '-u', 'Cmdenv', '-f', 'omnetpp.ini', '-c', 'Fifo1'], cwd=cwd)
 
-# convert Aloha's scalar files to CSV
-cwd = '/'.join([omnetpp_root, 'samples', 'aloha', 'results'])
-subprocess.call(['scavetool', 'export', '-T', 's', '-o', 'aloha.csv', '*.sca'], cwd=cwd)
+# convert Fifo's scalar files to CSV
+cwd = '/'.join(['.', 'fifo', 'results'])
+subprocess.call(['scavetool', 'export', '-T', 's', '-o', 'fifo.csv', '*.sca'], cwd=cwd)
 @
 
 <<name='import_data',term=False,wrap=True>>=
 import pandas as pd
-aloha_df = pd.read_csv('/'.join([cwd, 'aloha.csv']))
+fifo_df = pd.read_csv('/'.join([cwd, 'fifo.csv']))
 @
 
 % \subsection{Overview of Imported Data}
@@ -208,42 +205,55 @@ multiple pages from a pandas dataframe\footnote{Note that a space is inserted
 \begin{verbatim}
 <<echo=False,results='raw'>> =
 import numpy as np
-df = aloha_df[['Module', 'Name', 'Unnamed: 20']]
+df = fifo_df.filter(regex="^(?!(r|R)un).*$")  # exclude columns starting with run/Run
 print(df.to_latex(longtable=True))
 @
 \end{verbatim}
 
 <<echo=False,results='raw'>>=
 import numpy as np
-df = aloha_df[['Module', 'Name', 'Unnamed: 20']]
-print(df.iloc[:51].to_latex(longtable=True)) # limit to first 50 rows
+df = fifo_df.filter(regex="^(?!(r|R)un).*$")  # exclude columns starting with run/Run
+print(df.to_latex(longtable=True))
 @
 
 This automatic generation of a table from a pandas dataframe is quite handy
 because we can quickly go through overall data and investigate important results
-in detail (i.e., numbers not just a trend provided by plots). The suggested
-solution of embedding a long table within a Pweave document, however, is not
-perfect yet as there is no option in pandas.DataFrame.to\_latex API providing a
-caption and a label within a generated longtable environment. Note that
-surrounding the longtable with a tabular environment with its own caption and
-label does not work when the table spans over more than one pages.
+in detail (i.e., actual numbers not just a trend provided by plots). The
+suggested solution of embedding a long table within a Pweave document, however,
+is not perfect yet as there is no option in \textit{pandas.DataFrame.to\_latex}
+API providing a caption and a label within a generated longtable
+environment. Note that surrounding the longtable with a tabular environment with
+its own caption and label does not work when the table spans over more than one
+pages.
 
 
 \subsection{Data Analysis and Presentation}
 \label{sec:data-analys-pres}
 %%%
 Here we process the dataframe obtained in Sec.~\ref{sec:import-simul-results}
-and create a line plot showing the channel utilization against mean interarrival
-time.
+and create a bar plot with error bars showing mean queueing time against packet
+service time.
 
-<<caption='Channel Utilization vs. Mean Interarrival Time.'>>=
+<<caption='Mean queueing time  vs. service time (with 99 percent confidence intervals).'>>=
 import matplotlib.pyplot as plt
+import scipy as sp
+import scipy.stats
 
-wide_df = aloha_df.pivot('Run', columns='Name', values='Unnamed: 20')
-util_vs_ia = wide_df.pivot_table(index='mean', columns='numHosts', values='channelUtilization:last')
-util_vs_ia.plot.line(label='Number of Hosts')
-plt.xlabel('Mean Interarrival Time')
-plt.ylabel('Channel Utilization')
+
+def ci(x):                      # 99% confidence interval
+    a = 1.0*np.array(x)
+    n = len(a)
+    m, se = np.mean(a), scipy.stats.sem(a)
+    return (se * sp.stats.t._ppf((1+0.99)/2., n-1))
+
+
+pivoted = fifo_df.pivot(index='Run', columns='Name', values='Unnamed: 19')
+st_vs_qt = pivoted.pivot_table(index='st', values='queueingTime:mean')
+errs = pivoted.pivot_table(index='st', values='queueingTime:mean', aggfunc=ci)
+st_vs_qt.plot(kind='bar', legend=None, yerr=errs,
+              error_kw=dict(ecolor='black', elinewidth=1, capsize=5))
+plt.xlabel('Service Time')
+plt.ylabel('Mean Queueing Time')
 plt.show()
 @ 
 
@@ -251,7 +261,13 @@ plt.show()
 \section{Summary}
 \label{sec:summary}
 %%%
-We have presented ...
+This short tutorial aims to demonstrate the power of Python and Pweave in making
+reproducible research for OMNeT++. Taking OMNeT++ FIFO simulation as an example,
+we explain how to embed simulation configuration files and Python analysis code,
+import simulation data with automatic updating of simulation results, and
+analyze data and present their results in a \LaTeX file. The source file of this
+tutorial has been prepared as a minimal template for future reproducible
+research for OMNeT++.
 
 
 % %%% References
