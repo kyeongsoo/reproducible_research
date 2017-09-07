@@ -250,7 +250,7 @@ def ci(x):                      # 99% confidence interval
 pivoted = fifo_df.pivot(index='Run', columns='Name', values='Unnamed: 19')
 st_vs_qt = pivoted.pivot_table(index='st', values='queueingTime:mean')
 errs = pivoted.pivot_table(index='st', values='queueingTime:mean', aggfunc=ci)
-st_vs_qt.plot(kind='bar', legend=None, yerr=errs,
+st_vs_qt.plot(kind='bar', legend=None, yerr=errs, color='red',
               error_kw=dict(ecolor='black', elinewidth=1, capsize=5))
 plt.xlabel('Service Time')
 plt.ylabel('Mean Queueing Time')
