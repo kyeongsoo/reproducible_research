@@ -1,10 +1,12 @@
 <!-- ![LOGO](https://d1z75bzl1vljy2.cloudfront.net/img/gp-logo.png) -->
 
-#### Reproducible Research for OMNeT++ Based on Python and Pweave (* To be updated *)
+#### Reproducible Research for OMNeT++ Based on Python and Pweave
 <br>
 <span style="color:gray">Kyeong Soo (Joseph) Kim</span>
 <br>
 <span style="color:gray">Xi'an Jiaotong-Liverpool University (XJTLU)</span>
+<br>
+<span style="color:gray">(* To be updated *)</span>
 
 ---
 
