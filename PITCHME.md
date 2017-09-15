@@ -32,20 +32,20 @@
 ---
 
 ### Why Do We Need Reproducible Research: Two Examples
-* LIGO - Gravitational Wave Detection
-* Schon scandal - Molecular Computing
+* LIGO: Gravitational Wave Detection
+* Schon Scandal: Molecular Computing
 
 ---
 
-### LIGO - Gravitational Wave Detection - 1
+### LIGO: Gravitational Wave Detection - 1
 * 
   [Laser Interferometer Gravitational-Wave Observatory (LIGO)](https://en.wikipedia.org/wiki/LIGO) is
   a large-scale physics experiment and observatory to detect cosmic
   gravitational waves.
   
----
+---?image=figures/ligo_ipython_notebook.png
 
-### LIGO - Gravitational Wave Detection - 2
+### LIGO: Gravitational Wave Detection - 2
 * Gravitational wave detection was reported in Physical Review Letters in
   Feb. 2016, together
   with
@@ -53,8 +53,6 @@
   analysis code and data.
 
 ![LIGO Team](figures/ligo_team.jpg)
-
---?image=figures/ligo_ipython_notebook.png
 
 ---
 
