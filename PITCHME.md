@@ -21,15 +21,13 @@
 ---
 
 ### Reproducible Research
-* Reproducible research is a key to any scientific method and ensures repeating
-  an experiment and the results of its analysis in any place with any person.
-* A study can be truly reproducible when it satisfies at least the following
-  three criteria:
-  * All experimental methods are fully reported.
-  * All data and files used for the analysis are (publicly) available.
+* A key to any scientific method that ensures repeating an experiment and the
+  results of its analysis in any place with any person.
+* Criteria for a truly reproducible study:
+  * All experimental methods are *fully reported*.
+  * All data and files used for the analysis are *publicly available*.
   * The process of analyzing raw data is well reported and preserved.
-* Reproducible research is to ensure
-  * Same data + Same script = Same results
+* i.e., "Same data + Same script = Same results"
 
 ---
 
