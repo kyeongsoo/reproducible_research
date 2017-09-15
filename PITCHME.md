@@ -24,10 +24,10 @@
 * A key to any scientific method that ensures repeating an experiment and the
   results of its analysis in any place with any person.
 * Criteria for a truly reproducible study:
-  * All experimental methods are *fully reported*.
-  * All data and files used for the analysis are *publicly available*.
-  * The process of analyzing raw data is well reported and preserved.
-* i.e., "Same data + Same script = Same results"
+  * Experimental methods are *fully reported*.
+  * Data and analysis codes are *publicly available*.
+  * Analysis process is *described in detail*.
+* __*Same data + Same script = Same results*__
 
 ---
 
@@ -37,20 +37,24 @@
 
 ---
 
-### LIGO - Gravitational Wave Detection
-* The
+### LIGO - Gravitational Wave Detection - 1
+* 
   [Laser Interferometer Gravitational-Wave Observatory (LIGO)](https://en.wikipedia.org/wiki/LIGO) is
   a large-scale physics experiment and observatory to detect cosmic
   gravitational waves.
-  * The detection of gravitational wave was reported in Physical Review Letters
-	in Feb. 2016, together
-	with
-	[ipython notebook](https://losc.ligo.org/s/events/GW150914/GW150914_tutorial.html) with
-	analysis code and data.
+  
+---
+
+### LIGO - Gravitational Wave Detection - 2
+* Gravitational wave detection was reported in Physical Review Letters in
+  Feb. 2016, together
+  with
+  [ipython notebook](https://losc.ligo.org/s/events/GW150914/GW150914_tutorial.html) for
+  analysis code and data.
 
 ![LIGO Team](figures/ligo_team.jpg)
 
-![LIGO IPython Notebook](./figures/ligo_ipython_notebook.png)
+--?image=figures/ligo_ipython_notebook.png
 
 ---
 
