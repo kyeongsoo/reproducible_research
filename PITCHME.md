@@ -4,15 +4,55 @@
 <br>
 <span style="color:gray">Kyeong Soo (Joseph) Kim</span>
 <br>
+<span style="color:gray">Department of Electrical and Electronic Engineering</span>
+<br>
 <span style="color:gray">Xi'an Jiaotong-Liverpool University (XJTLU)</span>
 <br>
-<span style="color:gray">(* To be updated *)</span>
+<span style="color:darkgray">07 September 2017</span>
 
 ---
 
-### GitPitch turns <span style="color: #e49436; text-transform: none">PITCHME.md</span> into interactive, online slideshows.
-<br>
-<span style="color:gray; font-size:0.6em;">[ JUST LIKE THIS ONE ]</span>
+### Outlie
+* Reproducible Research
+* Python and Pweave
+* Reproducible Research for OMNeT++
+* Example: OMNeT++ FIFO Simulation
+
+---
+
+### Reproducible Research
+* Reproducible research is a key to any scientific method and ensures repeating
+  an experiment and the results of its analysis in any place with any person.
+* A study can be truly reproducible when it satisfies at least the following
+  three criteria:
+  * All experimental methods are fully reported.
+  * All data and files used for the analysis are (publicly) available.
+  * The process of analyzing raw data is well reported and preserved.
+* Reproducible research is to ensure
+  * Same data + Same script = Same results
+
+---
+
+### Why Do We Need Reproducible Research: Two Examples
+* LIGO - Gravitational Wave Detection
+* Schon scandal - Molecular Computing
+
+---
+
+### LIGO - Gravitational Wave Detection
+* The
+  [Laser Interferometer Gravitational-Wave Observatory (LIGO)](https://en.wikipedia.org/wiki/LIGO) is
+  a large-scale physics experiment and observatory to detect cosmic
+  gravitational waves.
+  * The detection of gravitational wave was reported in Physical Review Letters
+	in Feb. 2016, together
+	with
+	[ipython notebook](https://losc.ligo.org/s/events/GW150914/GW150914_tutorial.html) with
+	analysis code and data.
+
+![LIGO Team](./figures/ligo_team.jpg)
+
+![LIGO IPython Notebook](./figures/ligo_ipython_notebook.png)
 
 ---
 
@@ -22,7 +62,7 @@
 ### Just <span style="color: #e49436">Markdown</span>. Then <span style="color: #e49436">Git-Commit</span>.
 
 ---
-
+	
 <span style="color: #e49436">STEP 1. PITCHME.md</span>
 
 ![MARKDOWN](https://d1z75bzl1vljy2.cloudfront.net/hello-world/markdown.png)
