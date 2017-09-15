@@ -48,7 +48,7 @@
 	[ipython notebook](https://losc.ligo.org/s/events/GW150914/GW150914_tutorial.html) with
 	analysis code and data.
 
-![LIGO Team](./figures/ligo_team.jpg)
+![LIGO Team](figures/ligo_team.jpg)
 
 ![LIGO IPython Notebook](./figures/ligo_ipython_notebook.png)
 
