@@ -57,12 +57,17 @@
 ---
 
 ### Sch&ouml;n Scandal: Molecular Computing
-* No records found for his ground- breaking experimental results, including lab
-  notebook, experimental samples and data, hard disk drives.
+* The Sch&ouml;n scandal concerns German
+  physicist
+  [*Jan Hendrik Sch&ouml;n*](https://en.wikipedia.org/wiki/Sch%C3%B6n_scandal)
+  who briefly rose to prominence after a series of apparent breakthroughs with
+  semiconductors that were later discovered to be fraudulent.
   
 ---?image=figures/schon_scandal.jpg&size=auto
 
 <div style="color: white; background-color: black;">
+* No records found for his ground- breaking experimental results, including lab
+  notebook, experimental samples and data, hard disk drives.
 * During the investigation, he kept repeating "__*I clearly observed them in the
   Lab but ...*__"
 
