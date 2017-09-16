@@ -37,7 +37,7 @@
 
 ---
 
-### LIGO - 1
+### LIGO: Gravitational Wave Detection
 * 
   [Laser Interferometer Gravitational-Wave Observatory (LIGO)](https://en.wikipedia.org/wiki/LIGO) is
   a large-scale physics experiment and observatory which detected cosmic
@@ -48,7 +48,6 @@
 ---?image=figures/ligo_ipython_notebook.png&size=auto
 
 <div style="color: white; background-color: black;">
-### LIGO - 2
 * Gravitational wave detection was reported in Physical Review Letters together
   with
   [ipython notebook](https://losc.ligo.org/s/events/GW150914/GW150914_tutorial.html) for
