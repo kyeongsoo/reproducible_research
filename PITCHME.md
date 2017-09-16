@@ -71,6 +71,25 @@
 * During the investigation, he kept repeating "__*I clearly observed them in the
   Lab but ...*__"
 
+---
+
+### R/Sweave to Python/Pweave
+* Until recently, R was the language of choice for statistical processing and
+  data analysis.
+  * Still, R has the largest code base for a wide variety of statistical and
+    graphical techniques.
+* Like ipython (now jupyter), R provides a nice tool called Sweave (now replaced
+  by knitr) to weave documentation and the results of the execution of R code
+  chunks into one source file for integrated documentation.
+* Python &mdash; one of the most popular languages in scientific computing,
+  including artificial intelligence & machine learning &mdash; recently takes
+  over R in statistical processing and data analysis as well.
+* Thanks to pandas implementing DataFrameobject similar to R and Pweave, python
+  can replace R for most statistical and data analysis tasks, while retaining
+  its many advantages over R (i.e., fully-featured programming language with
+  easy syntax and higher speed).
+
+
 <!-- --- -->
 
 <!-- ### No more <span style="color: #666666">Keynote.</span> -->
