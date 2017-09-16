@@ -43,7 +43,7 @@
   a large-scale physics experiment and observatory which detected cosmic
   gravitational waves in 2016.
 
-![LIGO Team](figures/ligo_team.jpg)
+<img src="figures/ligo_team.jpg" alt="Ligo Team" style="width: 50%;">
 
 ---?image=figures/ligo_ipython_notebook.png&size=auto
 
@@ -53,69 +53,69 @@
   [ipython notebook](https://losc.ligo.org/s/events/GW150914/GW150914_tutorial.html) for
   analysis code and data.
 
----
+<!-- --- -->
 
-### No more <span style="color: #666666">Keynote.</span>
-### No more <span style="color: #666666">Powerpoint.</span>
-<br>
-### Just <span style="color: #e49436">Markdown</span>. Then <span style="color: #e49436">Git-Commit</span>.
+<!-- ### No more <span style="color: #666666">Keynote.</span> -->
+<!-- ### No more <span style="color: #666666">Powerpoint.</span> -->
+<!-- <br> -->
+<!-- ### Just <span style="color: #e49436">Markdown</span>. Then <span style="color: #e49436">Git-Commit</span>. -->
 
----
+<!-- --- -->
 	
-<span style="color: #e49436">STEP 1. PITCHME.md</span>
+<!-- <span style="color: #e49436">STEP 1. PITCHME.md</span> -->
 
-![MARKDOWN](https://d1z75bzl1vljy2.cloudfront.net/hello-world/markdown.png)
+<!-- ![MARKDOWN](https://d1z75bzl1vljy2.cloudfront.net/hello-world/markdown.png) -->
 
-Create GitPitch slideshow content using GitHub flavored Markdown in your favorite editor.
+<!-- Create GitPitch slideshow content using GitHub flavored Markdown in your favorite editor. -->
 
----
+<!-- --- -->
 
-<span style="color: #e49436">STEP 2. GIT-COMMIT</span>
+<!-- <span style="color: #e49436">STEP 2. GIT-COMMIT</span> -->
 
-![TERMINAL](https://d1z75bzl1vljy2.cloudfront.net/hello-world/terminal.png)
+<!-- ![TERMINAL](https://d1z75bzl1vljy2.cloudfront.net/hello-world/terminal.png) -->
 
-Git-commit on any branch and push your PITCHME.md to GitHub, GitLab, Bitbucket, Gitea, Gogs, or GitBucket.
+<!-- Git-commit on any branch and push your PITCHME.md to GitHub, GitLab, Bitbucket, Gitea, Gogs, or GitBucket. -->
 
----
+<!-- --- -->
 
-<span style="color: #e49436">STEP 3. GET THE WORD OUT!</span>
+<!-- <span style="color: #e49436">STEP 3. GET THE WORD OUT!</span> -->
 
-<br>
+<!-- <br> -->
 
-<span style="font-size: 1.3em;"><span style="color:white">htt</span><span style="color:white">ps://git</span><span style="color: #e49436">pitch</span><span style="color: white">.com/<span style="color: #e49436">user</span>/<span style="color: #e49436">repo</span>/<span style="color: #e49436">branch</span></span>
+<!-- <span style="font-size: 1.3em;"><span style="color:white">htt</span><span style="color:white">ps://git</span><span style="color: #e49436">pitch</span><span style="color: white">.com/<span style="color: #e49436">user</span>/<span style="color: #e49436">repo</span>/<span style="color: #e49436">branch</span></span> -->
 
-<br>
+<!-- <br> -->
 
-Instantly use your GitPitch slideshow URL to promote, pitch or present absolutely anything.
+<!-- Instantly use your GitPitch slideshow URL to promote, pitch or present absolutely anything. -->
 
----
+<!-- --- -->
 
-<span style="color: #e49436">GIT</span>PITCH DESIGNED FOR SHARING
+<!-- <span style="color: #e49436">GIT</span>PITCH DESIGNED FOR SHARING -->
 
-![SOCIAL](https://d1z75bzl1vljy2.cloudfront.net/hello-world/gp-social.jpg)
+<!-- ![SOCIAL](https://d1z75bzl1vljy2.cloudfront.net/hello-world/gp-social.jpg) -->
 
-- View any slideshow at its public URL
-- Promote any slideshow using a GitHub badge
-- Embed any slideshow within a blog or website
-- Share any slideshow on Twitter, LinkedIn, etc
-- Print any slideshow as a PDF document
-- Download and present any slideshow offline
+<!-- - View any slideshow at its public URL -->
+<!-- - Promote any slideshow using a GitHub badge -->
+<!-- - Embed any slideshow within a blog or website -->
+<!-- - Share any slideshow on Twitter, LinkedIn, etc -->
+<!-- - Print any slideshow as a PDF document -->
+<!-- - Download and present any slideshow offline -->
 
----
+<!-- --- -->
 
-<span style="color: #e49436">GIT</span>PITCH FEATURE RICH SLIDESHOWS
+<!-- <span style="color: #e49436">GIT</span>PITCH FEATURE RICH SLIDESHOWS -->
 
-- GitHub Flavored Markdown +
-- Code Presenting for Blocks, Files, and GISTs
-- Image and Video Slides
-- Custom Logos and Backgrounds
-- Multiple Themes And More
-- <span style="color: #e49436">Plus...</span>
-- Your Slideshow Is Part Of Your Project
-- Under Git Version Control Within Your Git Repo
+<!-- - GitHub Flavored Markdown + -->
+<!-- - Code Presenting for Blocks, Files, and GISTs -->
+<!-- - Image and Video Slides -->
+<!-- - Custom Logos and Backgrounds -->
+<!-- - Multiple Themes And More -->
+<!-- - <span style="color: #e49436">Plus...</span> -->
+<!-- - Your Slideshow Is Part Of Your Project -->
+<!-- - Under Git Version Control Within Your Git Repo -->
 
 
----
+<!-- --- -->
 
-### Go for it.
-### Just add <span style="color: #e49436; text-transform: none">PITCHME.md</span> ;)
+<!-- ### Go for it. -->
+<!-- ### Just add <span style="color: #e49436; text-transform: none">PITCHME.md</span> ;) -->
