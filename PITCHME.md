@@ -47,6 +47,7 @@
 
 ---?image=figures/ligo_ipython_notebook.png&size=auto
 
+<div style="color: white; background-color: black;">
 ### LIGO - 2
 * Gravitational wave detection was reported in Physical Review Letters together
   with
