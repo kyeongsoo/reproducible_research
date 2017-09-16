@@ -12,7 +12,7 @@
 
 ---
 
-### Outlie
+### Outline
 * Reproducible Research
 * Python and Pweave
 * Reproducible Research for OMNeT++
