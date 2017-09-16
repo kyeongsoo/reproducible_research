@@ -33,7 +33,7 @@
 
 ### Why Do We Need Reproducible Research: Two Examples
 * LIGO: Gravitational Wave Detection
-* Schon Scandal: Molecular Computing
+* Sch&ouml;n Scandal: Molecular Computing
 
 ---
 
@@ -48,10 +48,23 @@
 ---?image=figures/ligo_ipython_notebook.png&size=auto
 
 <div style="color: white; background-color: black;">
-* Gravitational wave detection was reported in Physical Review Letters together
+* Gravitational wave detection was reported in *Physical Review Letters*
+  together
   with
   [ipython notebook](https://losc.ligo.org/s/events/GW150914/GW150914_tutorial.html) for
   analysis code and data.
+
+---
+
+### Sch&ouml;n Scandal: Molecular Computing
+* No records found for his ground- breaking experimental results, including lab
+  notebook, experimental samples and data, hard disk drives.
+  
+---?image=figures/schon_scandal.jpg&size=auto
+
+<div style="color: white; background-color: black;">
+* During the investigation, he kept repeating "__*I clearly observed them in the
+  Lab but ...*__"
 
 <!-- --- -->
 
