@@ -89,6 +89,11 @@
   its many advantages over R (i.e., fully-featured programming language with
   easy syntax and higher speed).
 
+---
+
+### Demo: OMNeT++ FIFO Simulation
+* Visit [GitHub repository](https://github.com/kyeongsoo/reproducible_research).
+
 
 <!-- --- -->
 
